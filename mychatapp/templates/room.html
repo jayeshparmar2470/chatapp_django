@@ -1,0 +1,376 @@
+{% extends "base.html" %}
+
+{% block title %}chatroom-{{room}}{% endblock %}
+
+{% block content %}
+<style>
+    .message-container {
+        max-width: 80%;
+        /* Adjust the maximum width as needed */
+        margin: 0 auto;
+        /* Center the container horizontally */
+    }
+
+    .message {
+        padding: 5px;
+        margin: 5px;
+        border-radius: 5px;
+        word-wrap: break-word;
+        display: block;
+        /* Ensure each message appears on a new line */
+    }
+
+    .message.left {
+        text-align: left;
+        background-color: antiquewhite;
+        color: #333;
+        /* Grey text for received messages */
+        max-width: 40%;
+        margin-right: auto;
+        /* Push user messages to the left */
+        font-size: 20px;
+
+    }
+
+    .message.right {
+        text-align: right;
+        background-color: #4CAF50;
+        /* Green background for user's messages */
+        color: white;
+        /* White text for user's messages */
+        max-width: 40%;
+        /* Limit the maximum width of user messages */
+        margin-left: auto;
+        /* Push user messages to the right */
+        font-size: 20px;
+
+    }
+
+    /* Style the username in blue */
+    .message .username {
+        color: blue;
+    }
+
+    /* Add styles for message separators */
+    .message.separator {
+        text-align: center;
+        font-weight: bold;
+        background-color: #081b6e; /* Background color for separators */
+        color: #eeeaea; /* Text color for separators */
+        padding: 5px;
+        margin-top: 10px;
+    }
+
+
+    /* Additional CSS for the form */
+    #form-div {
+        max-width: 80%;
+        /* Adjust the maximum width as needed */
+        margin: 0 auto;
+        /* Center the form horizontally */
+    }
+</style>
+
+
+
+
+
+
+<h2 style="padding-top: 20px; padding-bottom: 10px;">Current Room: {{room}} - User: {{username}}</h2>
+
+<div class="message-container" id="display">
+    <!-- Messages will be displayed here -->
+    
+</div>
+
+<script>
+
+// $(document).ready(function() {
+
+// });    
+    // $(document).ready(function () {
+
+    //     // Function to check if a date is yesterday
+    //     function isYesterday(date, today) {
+    //         return date.getDate() === today.getDate() - 1 &&
+    //             date.getMonth() === today.getMonth() &&
+    //             date.getFullYear() === today.getFullYear();
+    //     }
+
+
+    //       // Function to compare message dates for sorting
+    // function compareMessageDates(a, b) {
+    //     const dateA = new Date(a.date);
+    //     const dateB = new Date(b.date);
+    //     return dateA - dateB;
+    // }
+
+
+    //     setInterval(function () {
+    //         $.ajax({
+    //             type: 'GET',
+    //             url: "/getMessages/{{room}}/",
+    //             success: function (response) {
+    //                 // console.log(response);
+    //                 $("#display").empty();
+
+
+    //             //// get today date and setting yesterday aaded flag    
+    //                 var today = new Date(); // Get the current date
+    //                 var yesterdayAdded = false; // Flag to track if "Yesterday" has been added
+    //                 var todayMessagesAdded = false; // Flag to track if "Yesterday" has been added
+
+
+    //             //// Sort messages by date so message separotor works properly
+    //                response.messages.sort(compareMessageDates);
+
+
+    //             ////to check if today date for today separtor checks only once as outside for loop   
+    //             //    if (messageDate.getFullYear() === today.getFullYear() && messageDate.getMonth() === today.getMonth()
+    //             //             && messageDate.getDate() === today.getDate()) {
+    //             //                     var separator = '<div class="message separator">TODAY</div>';
+
+    //             //                      $("#display").append(separator);
+    //             //                     var formattedDate = "Today";
+    //             //         }
+    //             // var separator = '<div class="message separator">TODAY</div>';
+    //             //  $("#display").append(separator);
+
+
+    //                 for (var key in response.messages) {
+    //                     var message = response.messages[key];
+    //                     var messageClass = message.user === "{{ username }}" ? "right" : "left";
+
+    //                     // Remove "BY:" when sending a message
+    //                     var usernamePart = messageClass === "right" ? "" : `<b class="username">BY:${message.user}</b><br>`;
+
+    //                     // Parse the message date
+    //                     var messageDate = new Date(message.date);
+
+    //                     //message separator logic
+
+    //                     if(isYesterday(messageDate, today)) {
+    //                         if (!yesterdayAdded) {
+    //                             // Add a separator for "Yesterday" if it hasn't been added
+    //                             var separator = '<div class="message separator">Yesterday</div>';
+    //                             $("#display").append(separator);
+    //                             yesterdayAdded = true;
+    //                         }
+    //                         var formattedDate = "Yesterday";
+    //                      }
+    //                      else{
+    //                         var formattedDate = messageDate.toLocaleString(); // Format as date and time
+    //                         var separator = `<div class="message separator">${formattedDate.split(",")[0]}</div>`;
+    //                           // Check if the message date is today
+    //                     if (!todayMessagesAdded && messageDate.toDateString() === today.toDateString()) {
+    //                         var separator = '<div class="message separator">TODAY</div>';
+    //                         $("#display").append(separator);
+    //                         todayMessagesAdded = true;
+    //                     }
+                         
+    //                     }
+
+
+
+
+    //                     var temp = `
+    //                     <div class='message ${messageClass}'>
+    //                         ${usernamePart}
+    //                         <p>message:${message.value}</p>
+    //                         <span class='time-left'>${formattedDate}</span>
+    //                     </div>`;
+
+    //                     $("#display").append(temp);
+    //                 }
+    //             },
+    //             error: function (response) {
+    //                 alert('An error occurred');
+    //             }
+    //         });
+    //     }, 1000);
+    // })
+
+    $(document).ready(function () {
+    // Function to check if a date is yesterday
+    function isYesterday(date, today) {
+        return (
+            date.getDate() === today.getDate() - 1 &&
+            date.getMonth() === today.getMonth() &&
+            date.getFullYear() === today.getFullYear()
+        );
+    }
+
+        //       // Function to compare message dates for sorting
+        function compareMessageDates(a, b) {
+            const dateA = new Date(a.date);
+            const dateB = new Date(b.date);
+            return dateA - dateB;
+        }
+
+
+    // Initialize the "yesterdayAdded" flag
+    var yesterdayAdded = false;
+
+    $('.delete-button').click(function() {
+        var messageId = $(this).data('message-id');
+        alert("clickded");
+
+        $.ajax({
+            type: 'POST',
+            url: `/delete_message/${messageId}/`,
+            data: {
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+            },
+            success: function(response) {
+                if (response.success) {
+                    // Message deleted successfully, remove it from the DOM
+                    $(`.message[data-message-id=${messageId}]`).remove();
+                } else {
+                    alert(response.message);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+    });
+
+
+
+
+    setInterval(function () {
+        $.ajax({
+            type: 'GET',
+            url: "/getMessages/{{room}}/",
+            success: function (response) {
+                console.log(response);
+                $("#display").empty();
+
+                //// Sort messages by date so message separotor works properly
+                   response.messages.sort(compareMessageDates);
+
+                // Initialize variables to keep track of the displayed dates
+                var displayedDates = [];
+                var today = new Date();
+
+                for (var key in response.messages) {
+                    var message = response.messages[key];
+                    var messageClass = message.user === "{{ username }}" ? "right" : "left";
+
+                    // Remove "BY:" when sending a message
+                    var usernamePart = messageClass === "right" ? "" : `<b class="username">BY:${message.user}</b><br>`;
+
+                    // Parse the message date
+                    var messageDate = new Date(message.date);
+
+
+                    // Check whether date is there in dispalyedDates or not if not then display separtor
+                    var formattedDate = messageDate.toLocaleDateString(); // Format as date (without time)
+                    if (!displayedDates.includes(formattedDate)) {
+                        if (formattedDate === today.toLocaleDateString()) {
+                            var separator = `<div class="message separator">TODAY</div>`;
+                            $("#display").append(separator);
+                           displayedDates.push(formattedDate);
+                       }
+                     else  if (isYesterday(messageDate, today)) {
+                        formattedDate=messageDate.toLocaleDateString();
+                            // alert(messageDate.toLocaleDateString());
+                            if (!displayedDates.includes(formattedDate)) {
+                            var separator = '<div class="message separator">Yesterday</div>';
+                            $("#display").append(separator);
+                            displayedDates.push(formattedDate);
+                         }
+                    }
+                       else{
+                        var separator = `<div class="message separator">${formattedDate}</div>`;
+                        $("#display").append(separator);
+                        displayedDates.push(formattedDate);
+                       }
+                    }
+
+                    // Append the message
+                    var temp = `
+                        <div class='message ${messageClass}'>
+                            ${usernamePart}
+                            <p>message:${message.value}</p>
+                            <span class='time-left'>${messageDate.toLocaleTimeString()}</span>
+                        </div>
+                        ${message.user === "{{ username }}" ? `
+                        <div class="delete">
+                            <button class="delete-button" data-message-id="${message.id}">Delete</button>
+                        </div>` : ''}`
+
+                    $("#display").append(temp);
+                }
+            },
+            error: function (response) {
+                alert('An error occurred');
+            }
+        });
+    }, 1000);
+
+   
+});
+
+</script>
+
+<div class="container" id="form-div">
+    <br>
+    <form id="post-form">
+        {% csrf_token %}
+        <input type="hidden" name="username" id="username" value="{{username}}" />
+        <input type="hidden" name="room_id" id="room_id" value="{{room_details.id}}" />
+        <textarea class="form-control" aria-label="With textarea" type="text" name="message" id="message"
+            style="margin-top: 10px;"></textarea>
+        <input type="submit" value="Send">
+    </form>
+</div>
+
+<script>
+    $(document).on('submit', '#post-form', function (e) {
+
+        e.preventDefault();
+
+        var csrfToken = $('input[name=csrfmiddlewaretoken]').val();
+
+        var formData = {
+            username: $('#username').val(),
+            room_id: $('#room_id').val(),
+            message: $('#message').val(),
+        };
+
+        // Function to validate the message before sending
+        function validateMessage(message) {
+            if (!message || message.trim() === "") {
+                alert('Message cannot be blank');
+                return false;
+            }
+            return true;
+        }
+
+        if (!validateMessage(formData.message)) {
+            return; // Don't proceed with the AJAX request if validation fails
+        }
+
+        var headers = {
+            'X-CSRFToken': csrfToken
+        };
+        $.ajax({
+            type: 'POST',
+            url: '/send',
+            data: formData,
+            headers: headers,
+            success: function (data) {
+                // Handle the success response
+            },
+            error: function (xhr, status, error) {
+                // Handle errors
+            }
+        });
+
+        document.getElementById('message').value = '';
+    });
+   
+</script>
+
+{% endblock %}

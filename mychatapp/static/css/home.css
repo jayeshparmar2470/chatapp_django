@@ -1,0 +1,121 @@
+body{
+    background-color: #f4ca4d;
+}
+
+nav{
+    font-family: 'Akaya Kanadaka', cursive;
+}
+
+
+input[type=submit] {
+    width: 100%;
+    background-color: #333333;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 9px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: #120061;
+}
+
+.mycontainer {
+    border: 10px solid #ec1111;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.ndarker {
+    border-color: #ccc;
+    background-color: #ddd;
+}
+
+.mycontainer::after {
+content: "";
+clear: both;
+display: table;
+}
+/* 
+.container img {
+    float: left;
+    max-width: 60px;
+    width: 100%;
+    margin-right: 20px;
+    border-radius: 50%;
+}
+
+.container img.right {
+    float: right;
+    margin-left: 20px;
+    margin-right:0;
+} */
+/* 
+.time-right {
+    float: right;
+    color: #aaa;
+}
+
+.time-left {
+    float: left;
+    color: #999;
+} */
+
+
+
+h5{
+    text-align: center;
+    font-size: 12px;
+    font-family: 'Poppins', sans-serif;
+}
+
+h6{
+    text-align: center;
+    font-size: 10px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.btn{
+    background: rgb(0, 174, 255);
+    color: white;
+    border-radius: 35px;
+}
+
+.btn:hover{
+    background-color:  rgb(0, 140, 255);
+    color: white;
+    border-radius: 2px;
+}
+
+
+
+
+/* #room_name_top{
+    margin-top: 40px;
+    font-size: 30px;}
+
+#username_top{
+    margin-top: 5px;
+    font-size: 30px;
+} */
+
+
+#input1{
+    font-family: 'Poppins', sans-serif;
+    height: 20px;
+}
+
+#input2{
+    font-family: 'Poppins', sans-serif;
+    height: 20px;
+}
+
+
+
+#post-form{
+    font-family: 'Poppins', sans-serif;
+}
+

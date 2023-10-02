@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Home - My Website{% endblock %}
+
+{% block content %}
+    <div class="container bg-primary" style="margin-top: 100px">
+
+      <form id="post-form" method="POST" action="checkview">
+        {% csrf_token %}
+        
+        <label for="room_name" style="font-size: 33px;">Room Name</label>
+        <input id="room_name" class="form-control" type="text" name="room_name" 
+          aria-label="Room Name" style="margin-top: 10px; height:66px">
+
+        <label for="username" style="font-size: 33px;">Username</label>
+        <input id="username" class="form-control" type="text" name="username" 
+        aria-label="Username" style="margin-top: 10px;height: 66px;">
+
+        <input type="submit" class="my-2" value="Start Chat Now!">
+
+
+      </form>
+  </div>
+
+{% endblock %}
+ 
+ 

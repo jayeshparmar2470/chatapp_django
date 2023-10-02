@@ -1,0 +1,25 @@
+room ,messages models
+username
+login  
+register
+
+username always unique in django
+enter room by room name or room_id
+
+css to make user and other separate
+removing "BY-" logic in user side
+blue color text for by someone message && *__++upercase other name
+*****differnt font families used
+
+messages recieved are sorted by date after recieving so date msg separator works
+proper date format whereever possible is done
+if message yesterday then yesterday breaker must be added
+proper font-size
+
+
+two same username--error  (unique username)
+two same room -never happens (only by admin possible)   (unique rooms and id)
+blank message then alert
+*****delete message option
+
+*****scrolling when new message arrive
